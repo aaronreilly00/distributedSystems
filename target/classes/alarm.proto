@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "alarm";
+option java_outer_classname = "AlarmServiceImpl";
+
+package alarm;
+
+// Interface exported by the server.
+service AlarmService {
+   
+  rpc GetAnimal(Point) returns (Livestock);
+  rpc RouteTracking(stream Route) returns (stream Route);
+  
+}
+
+message Point {
+  int32 latitude = 1;
+  int32 longitude = 2;
+}
+
+
+message Livestock {
+  // The id of the animal.
+  int32 tagId = 1;
+
+  // The point where the animal is detected.
+  Point location = 2;
+}
+
+// A Route is a message sent while at a given point.
+message Route {
+  // The location from which the message is sent.
+  Point location = 1;
+
+  // The message to be sent.
+  string message = 2;
+}

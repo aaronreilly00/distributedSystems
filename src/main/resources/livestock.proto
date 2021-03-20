@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "livestock";
+option java_outer_classname = "LivestockServiceImpl";
+
+package livestock;
+
+// Interface exported by the server.
+service LivestockService {
+    
+  rpc livestock(LivestockRequest) returns (stream LivestockResponse);
+
+}
+
+message LivestockRequest {
+  string tag = 1;
+}
+
+message LivestockResponse {
+  string tag = 1;
+  string gender = 2;
+  string dob = 3;
+  string temperature = 4; 
+  string feedTime = 5;
+  int32 latitude = 6;
+  int32 longitude = 7;
+}
+

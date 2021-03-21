@@ -15,6 +15,8 @@ import static io.grpc.stub.ServerCalls.asyncUnaryCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
 
+import java.util.Iterator;
+
 /**
  * <pre>
  * Interface exported by the server.
@@ -165,9 +167,9 @@ public final class LivestockServiceGrpc {
 
     /**
      */
-    public java.util.Iterator<livestock.LivestockResponse> livestock(
+    public LivestockResponse livestock(
         livestock.LivestockRequest request) {
-      return blockingServerStreamingCall(
+      return blockingUnaryCall(
           getChannel(), getLivestockMethod(), getCallOptions(), request);
     }
   }

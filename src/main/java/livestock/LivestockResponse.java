@@ -17,12 +17,12 @@ private static final long serialVersionUID = 0L;
   }
   private LivestockResponse() {
     tag_ = "";
-    gender_ = "";
-    dob_ = "";
-    temperature_ = "";
-    feedTime_ = "";
-    latitude_ = 0;
-    longitude_ = 0;
+    gender_ = "female";
+    dob_ = "29/01/2021";
+    temperature_ = "37.8";
+    feedTime_ = "15:00";
+    latitude_ = 53.3459202841207D;
+    longitude_ = -6.5293262893515545D;
   }
 
   @java.lang.Override
@@ -79,14 +79,14 @@ private static final long serialVersionUID = 0L;
             feedTime_ = s;
             break;
           }
-          case 48: {
+          case 49: {
 
-            latitude_ = input.readInt32();
+            latitude_ = input.readDouble();
             break;
           }
-          case 56: {
+          case 57: {
 
-            longitude_ = input.readInt32();
+            longitude_ = input.readDouble();
             break;
           }
           default: {
@@ -292,20 +292,20 @@ private static final long serialVersionUID = 0L;
   }
 
   public static final int LATITUDE_FIELD_NUMBER = 6;
-  private int latitude_;
+  private double latitude_;
   /**
-   * <code>int32 latitude = 6;</code>
+   * <code>double latitude = 6;</code>
    */
-  public int getLatitude() {
+  public double getLatitude() {
     return latitude_;
   }
 
   public static final int LONGITUDE_FIELD_NUMBER = 7;
-  private int longitude_;
+  private double longitude_;
   /**
-   * <code>int32 longitude = 7;</code>
+   * <code>double longitude = 7;</code>
    */
-  public int getLongitude() {
+  public double getLongitude() {
     return longitude_;
   }
 
@@ -338,11 +338,11 @@ private static final long serialVersionUID = 0L;
     if (!getFeedTimeBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 5, feedTime_);
     }
-    if (latitude_ != 0) {
-      output.writeInt32(6, latitude_);
+    if (latitude_ != 0D) {
+      output.writeDouble(6, latitude_);
     }
-    if (longitude_ != 0) {
-      output.writeInt32(7, longitude_);
+    if (longitude_ != 0D) {
+      output.writeDouble(7, longitude_);
     }
     unknownFields.writeTo(output);
   }
@@ -368,13 +368,13 @@ private static final long serialVersionUID = 0L;
     if (!getFeedTimeBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, feedTime_);
     }
-    if (latitude_ != 0) {
+    if (latitude_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(6, latitude_);
+        .computeDoubleSize(6, latitude_);
     }
-    if (longitude_ != 0) {
+    if (longitude_ != 0D) {
       size += com.google.protobuf.CodedOutputStream
-        .computeInt32Size(7, longitude_);
+        .computeDoubleSize(7, longitude_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -402,10 +402,14 @@ private static final long serialVersionUID = 0L;
         .equals(other.getTemperature());
     result = result && getFeedTime()
         .equals(other.getFeedTime());
-    result = result && (getLatitude()
-        == other.getLatitude());
-    result = result && (getLongitude()
-        == other.getLongitude());
+    result = result && (
+        java.lang.Double.doubleToLongBits(getLatitude())
+        == java.lang.Double.doubleToLongBits(
+            other.getLatitude()));
+    result = result && (
+        java.lang.Double.doubleToLongBits(getLongitude())
+        == java.lang.Double.doubleToLongBits(
+            other.getLongitude()));
     result = result && unknownFields.equals(other.unknownFields);
     return result;
   }
@@ -428,9 +432,11 @@ private static final long serialVersionUID = 0L;
     hash = (37 * hash) + FEEDTIME_FIELD_NUMBER;
     hash = (53 * hash) + getFeedTime().hashCode();
     hash = (37 * hash) + LATITUDE_FIELD_NUMBER;
-    hash = (53 * hash) + getLatitude();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getLatitude()));
     hash = (37 * hash) + LONGITUDE_FIELD_NUMBER;
-    hash = (53 * hash) + getLongitude();
+    hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+        java.lang.Double.doubleToLongBits(getLongitude()));
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -574,9 +580,9 @@ private static final long serialVersionUID = 0L;
 
       feedTime_ = "";
 
-      latitude_ = 0;
+      latitude_ = 0D;
 
-      longitude_ = 0;
+      longitude_ = 0D;
 
       return this;
     }
@@ -679,10 +685,10 @@ private static final long serialVersionUID = 0L;
         feedTime_ = other.feedTime_;
         onChanged();
       }
-      if (other.getLatitude() != 0) {
+      if (other.getLatitude() != 0D) {
         setLatitude(other.getLatitude());
       }
-      if (other.getLongitude() != 0) {
+      if (other.getLongitude() != 0D) {
         setLongitude(other.getLongitude());
       }
       this.mergeUnknownFields(other.unknownFields);
@@ -1059,54 +1065,54 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private int latitude_ ;
+    private double latitude_ ;
     /**
-     * <code>int32 latitude = 6;</code>
+     * <code>double latitude = 6;</code>
      */
-    public int getLatitude() {
+    public double getLatitude() {
       return latitude_;
     }
     /**
-     * <code>int32 latitude = 6;</code>
+     * <code>double latitude = 6;</code>
      */
-    public Builder setLatitude(int value) {
+    public Builder setLatitude(double value) {
       
       latitude_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 latitude = 6;</code>
+     * <code>double latitude = 6;</code>
      */
     public Builder clearLatitude() {
       
-      latitude_ = 0;
+      latitude_ = 0D;
       onChanged();
       return this;
     }
 
-    private int longitude_ ;
+    private double longitude_ ;
     /**
-     * <code>int32 longitude = 7;</code>
+     * <code>double longitude = 7;</code>
      */
-    public int getLongitude() {
+    public double getLongitude() {
       return longitude_;
     }
     /**
-     * <code>int32 longitude = 7;</code>
+     * <code>double longitude = 7;</code>
      */
-    public Builder setLongitude(int value) {
+    public Builder setLongitude(double value) {
       
       longitude_ = value;
       onChanged();
       return this;
     }
     /**
-     * <code>int32 longitude = 7;</code>
+     * <code>double longitude = 7;</code>
      */
     public Builder clearLongitude() {
       
-      longitude_ = 0;
+      longitude_ = 0D;
       onChanged();
       return this;
     }

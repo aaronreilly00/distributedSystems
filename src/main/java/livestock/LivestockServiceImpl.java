@@ -37,8 +37,8 @@ public final class LivestockServiceImpl {
       "kRequest\022\013\n\003tag\030\001 \001(\t\"\211\001\n\021LivestockRespo" +
       "nse\022\013\n\003tag\030\001 \001(\t\022\016\n\006gender\030\002 \001(\t\022\013\n\003dob\030" +
       "\003 \001(\t\022\023\n\013temperature\030\004 \001(\t\022\020\n\010feedTime\030\005" +
-      " \001(\t\022\020\n\010latitude\030\006 \001(\005\022\021\n\tlongitude\030\007 \001(" +
-      "\0052\\\n\020LivestockService\022H\n\tlivestock\022\033.liv" +
+      " \001(\t\022\020\n\010latitude\030\006 \001(\001\022\021\n\tlongitude\030\007 \001(" +
+      "\0012\\\n\020LivestockService\022H\n\tlivestock\022\033.liv" +
       "estock.LivestockRequest\032\034.livestock.Live" +
       "stockResponse0\001B#\n\tlivestockB\024LivestockS" +
       "erviceImplP\001b\006proto3"

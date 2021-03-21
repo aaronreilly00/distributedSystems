@@ -58,12 +58,12 @@ public interface LivestockResponseOrBuilder extends
       getFeedTimeBytes();
 
   /**
-   * <code>int32 latitude = 6;</code>
+   * <code>double latitude = 6;</code>
    */
-  int getLatitude();
+  double getLatitude();
 
   /**
-   * <code>int32 longitude = 7;</code>
+   * <code>double longitude = 7;</code>
    */
-  int getLongitude();
+  double getLongitude();
 }

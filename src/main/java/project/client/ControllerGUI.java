@@ -30,7 +30,7 @@ public class ControllerGUI implements ActionListener{
 	
 	
 	private JTextField entry1, reply1;
-	//private JTextField entry2, reply2;
+	private JTextField reply2, reply3, reply4, reply5, reply6, reply7;
 	//private JTextField entry3, reply3;
 	//private JTextField entry4, reply4;
 
@@ -57,6 +57,31 @@ public class ControllerGUI implements ActionListener{
 		reply1 .setEditable(false);
 		panel.add(reply1 );
 
+		reply2 = new JTextField("", 10);
+		reply2 .setEditable(false);
+		panel.add(reply2 );
+		
+		
+		reply3 = new JTextField("", 10);
+		reply3 .setEditable(false);
+		panel.add(reply3 );
+	
+		reply4 = new JTextField("", 10);
+		reply4 .setEditable(false);
+		panel.add(reply4 );
+		
+		reply5 = new JTextField("", 10);
+		reply5 .setEditable(false);
+		panel.add(reply5 );
+		
+		reply6 =new JTextField("", 10);
+		reply6 .setEditable(false);
+		panel.add(reply6 );
+		
+		reply7 = new JTextField("", 10);
+		reply7 .setEditable(false);
+		panel.add(reply7 );
+		
 		panel.setLayout(boxlayout);
 
 		return panel;
@@ -122,7 +147,13 @@ public class ControllerGUI implements ActionListener{
 			//retreving reply from service
 			LivestockResponse response = blockingStub.livestock(request);
 
-			reply1.setText( String.valueOf( response.getTag()) );
+			reply1.setText( String.valueOf( response.getTag()));
+			reply2.setText( String.valueOf( response.getGender()));
+			reply3.setText( String.valueOf( response.getDob()));
+			reply4.setText( String.valueOf( response.getTemperature()));
+			reply5.setText( String.valueOf( response.getFeedTime()));
+			reply6.setText( String.valueOf( response.getLatitude()));
+			reply7.setText( String.valueOf( response.getLongitude()) );
 		}else{
 			
 		}

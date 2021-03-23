@@ -16,13 +16,13 @@ private static final long serialVersionUID = 0L;
     super(builder);
   }
   private LivestockResponse() {
-    tag_ = "";
-    gender_ = "female";
-    dob_ = "29/01/2021";
-    temperature_ = "37.8";
-    feedTime_ = "15:00";
-    latitude_ = 53.3459202841207D;
-    longitude_ = -6.5293262893515545D;
+	  tag_ = "";
+	    gender_ = "female";
+	    dob_ = "09/08/2020";
+	    temperature_ = "37";
+	    feedTime_ = "15:00";
+	    latitude_ = 57.5555D;
+	    longitude_ = -1.1111D;
   }
 
   @java.lang.Override

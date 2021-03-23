@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "tractor";
+option java_outer_classname = "TractorServiceImpl";
+
+package tractor;
+
+// The greeting service definition.
+service TractorService {
+  
+  rpc TractorDetails (TractorRequest) returns (TractorResponse);
+}
+
+message TractorRequest {
+  string name = 1;
+}
+
+message TractorResponse {
+  string message = 1;
+}

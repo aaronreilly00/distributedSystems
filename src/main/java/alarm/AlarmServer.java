@@ -30,12 +30,13 @@ private static final Logger logger = Logger.getLogger(AlarmServer.class.getName(
 	public StreamObserver<Point> routeTracking(final StreamObserver<RouteNote> responseObserver) {
 	      return new StreamObserver<Point>() {
 	        public void onNext(Point request) {
-	            StringBuilder statement = new StringBuilder(); 
+	            double tracking;
 	  
-	            statement.append(request.getLatitude() + request.getLongitude());
-	            System.out.println(statement);
+	            tracking = request.getLatitude() + request.getLongitude();
+	            System.out.println(tracking);
+	            
 	        
-	            RouteNote reply = RouteNote.newBuilder().setTag(statement.toString()).build();
+	            RouteNote reply = RouteNote.newBuilder().setTag("Livestock with TAG ID COW123 is out of bounds").build();
 	      
 	            responseObserver.onNext(reply);
 	          }

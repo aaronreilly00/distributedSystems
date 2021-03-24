@@ -14,11 +14,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-//import org.python.core.PyObject;
-//import org.python.core.PyString;
-//import org.python.util.PythonInterpreter;
-
 import alarm.AlarmServiceGrpc;
 import alarm.Point;
 import alarm.RouteNote;
@@ -28,13 +23,8 @@ import io.grpc.stub.StreamObserver;
 import lighting.LightRequest;
 import lighting.LightResponse;
 import lighting.LightServiceGrpc;
-//import lighting.LightingClient;
-//import lighting.LightingServer;
-import lighting.PowerRequest;
-import lighting.PowerResponse;
 import livestock.LivestockRequest;
 import livestock.LivestockResponse;
-//import livestock.LivestockServer;
 import livestock.LivestockServiceGrpc;
 import tractor.TractorServiceGrpc;
 import tractor.TractorServiceGrpc.TractorServiceBlockingStub;
@@ -55,14 +45,14 @@ public class ControllerGUI1 implements ActionListener {
 
 		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.X_AXIS);
 
-		JLabel label = new JLabel("Enter value");
+		JLabel label = new JLabel("Animal Tag");
 		panel.add(label);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 		tagEntry = new JTextField("", 10);
 		panel.add(tagEntry);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 
-		JButton button = new JButton("Invoke Service 1");
+		JButton button = new JButton("Invoke Service Livestock");
 		button.addActionListener(this);
 		panel.add(button);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -107,14 +97,14 @@ public class ControllerGUI1 implements ActionListener {
 
 		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.X_AXIS);
 
-		JLabel label = new JLabel("Enter value");
+		JLabel label = new JLabel("Switch Power");
 		panel.add(label);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 		powerEntry = new JTextField("", 10);
 		panel.add(powerEntry);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 
-		JButton button = new JButton("Invoke Service 2");
+		JButton button = new JButton("Power");
 		button.addActionListener(this);
 		panel.add(button);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -123,8 +113,8 @@ public class ControllerGUI1 implements ActionListener {
 		powerReply.setEditable(false);
 		panel.add(powerReply);
 
-		JLabel label2 = new JLabel("Enter value");
-		panel.add(label);
+		JLabel label2 = new JLabel("Brightness Level");
+		panel.add(label2);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 		brightnessEntry = new JTextField("", 10);
 		panel.add(brightnessEntry);
@@ -150,21 +140,21 @@ public class ControllerGUI1 implements ActionListener {
 
 		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.X_AXIS);
 
-		JLabel label = new JLabel("Enter Lat");
+		JLabel label = new JLabel("Enter Latitude");
 		panel.add(label);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 		alarmLatEntry = new JTextField("", 10);
 		panel.add(alarmLatEntry);
-		JLabel label13 = new JLabel("Enter Long");
+		JLabel label13 = new JLabel(" Enter Longitude");
 		panel.add(label13);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 		alarmLongEntry = new JTextField("", 10);
 		panel.add(alarmLongEntry);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 
-		JButton button = new JButton("Alarm System");
-		button.addActionListener(this);
-		panel.add(button);
+		JButton alarmBtn = new JButton("Alarm System");
+		alarmBtn.addActionListener(this);
+		panel.add(alarmBtn);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 
 		alarmReply = new JTextField("", 10);
@@ -183,7 +173,7 @@ public class ControllerGUI1 implements ActionListener {
 
 		BoxLayout boxlayout = new BoxLayout(panel, BoxLayout.X_AXIS);
 
-		JLabel label = new JLabel("Enter value");
+		JLabel label = new JLabel("Enter brand");
 		panel.add(label);
 		panel.add(Box.createRigidArea(new Dimension(10, 0)));
 		brand = new JTextField("", 10);
@@ -249,9 +239,9 @@ public class ControllerGUI1 implements ActionListener {
 		JButton button = (JButton) e.getSource();
 		String label = button.getActionCommand();
 
-		if (label.equals("Invoke Service 1")) {
+		if (label.equals("Invoke Service Livestock")) {
 
-			System.out.println("service 1 to be invoked ...");
+			System.out.println("Service Livestock to be invoked ...");
 			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50051).usePlaintext().build();
 			asyncStub = LivestockServiceGrpc.newStub(channel);
 			LivestockRequest request = LivestockRequest.newBuilder().setTag(tagEntry.getText()).build();
@@ -291,11 +281,11 @@ public class ControllerGUI1 implements ActionListener {
 			} catch (InterruptedException e1) {
 				e1.printStackTrace();
 			}
-		} else if (label.equals("Invoke Service 2")) {
-			System.out.println("service 2 to be invoked ...");
+		} else if (label.equals("Power")) {
+			System.out.println("Lighting service to be invoked ...");
 
-			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50055).usePlaintext().build();
-			LightServiceGrpc.LightServiceBlockingStub blockingStub = LightServiceGrpc.newBlockingStub(channel);
+			ManagedChannel channel1 = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
+			LightServiceGrpc.LightServiceBlockingStub blockingStub = LightServiceGrpc.newBlockingStub(channel1);
 
 			// preparing message to send
 			if (powerEntry.getText().equalsIgnoreCase("on")) {
@@ -304,7 +294,7 @@ public class ControllerGUI1 implements ActionListener {
 				// retreving reply from service
 				lighting.PowerResponse response = blockingStub.switchPower(request);
 
-				powerReply.setText(String.valueOf("Light power has been turned on! " + response.getSwitch()));
+				powerReply.setText(String.valueOf("power status set to " + response.getSwitch()));
 
 			} else if (powerEntry.getText().equalsIgnoreCase("off")) {
 				lighting.PowerRequest request = lighting.PowerRequest.newBuilder().setSwitch(false).build();
@@ -312,14 +302,14 @@ public class ControllerGUI1 implements ActionListener {
 				// retreving reply from service
 				lighting.PowerResponse response = blockingStub.switchPower(request);
 
-				powerReply.setText(String.valueOf("Light power has been turned off! " + response.getSwitch()));
+				powerReply.setText(String.valueOf("power status set to " + response.getSwitch()));
 
 			}
 
 		} else if (label.equals("Change brightness")) {
-			System.out.println("service 2 to be invoked ...");
+			System.out.println("Lighting service to be invoked ...");
 
-			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50055).usePlaintext().build();
+			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50052).usePlaintext().build();
 			asyncStub1 = LightServiceGrpc.newStub(channel);
 
 			StreamObserver<LightResponse> responseObserver = new StreamObserver<LightResponse>() {
@@ -350,12 +340,6 @@ public class ControllerGUI1 implements ActionListener {
 				requestObserver.onNext(LightRequest.newBuilder().setLight(brightness).build());
 				System.out.println(brightness);
 				updatedBrightness.setText(text);
-				requestObserver.onNext(LightRequest.newBuilder().setLight(2).build());
-				System.out.println("Sent");
-				requestObserver.onNext(LightRequest.newBuilder().setLight(3).build());
-				System.out.println("Sent");
-				requestObserver.onNext(LightRequest.newBuilder().setLight(4).build());
-				System.out.println("Sent");
 				requestObserver.onNext(LightRequest.newBuilder().setLight(5).build());
 				System.out.println("Sent");
 
@@ -371,7 +355,7 @@ public class ControllerGUI1 implements ActionListener {
 			requestObserver.onCompleted();
 
 		} else if (label.equals("Alarm System")) {
-			System.out.println("Alarm System invoked ...");
+			System.out.println("Alarm System to be invoked ...");
 
 			ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 50053).usePlaintext().build();
 			asyncStub2 = AlarmServiceGrpc.newStub(channel);
@@ -380,7 +364,7 @@ public class ControllerGUI1 implements ActionListener {
 
 				@Override
 				public void onNext(RouteNote value) {
-					System.out.println("receiving statement to print -> " + value.getLocation() + value.getTag());
+					alarmReply.setText(value.getLocation() + value.getTag());
 				}
 
 				@Override
@@ -403,9 +387,6 @@ public class ControllerGUI1 implements ActionListener {
 				double longitude = Double.parseDouble(lon);
 				
 				requestObserver.onNext(Point.newBuilder().setLatitude(latitude).setLongitude(longitude).build());
-				//requestObserver.onNext(Point.newBuilder().setLongitude(longitude).build());
-				
-				alarmReply.setText("lat: " + lat + "lon: " + lon);
 
 				Thread.sleep(new Random().nextInt(1000) + 500);
 
@@ -432,14 +413,6 @@ public class ControllerGUI1 implements ActionListener {
 
 				brandReply.setText(String.valueOf(response.getMessage()));
 			
-				
-			//try(PythonInterpreter interpreter = new PythonInterpreter()){
-			//interpreter.exec("print('Hello World')");
-			// execute a function that takes a string and returns a string
-			//PyObject someFunc = interpreter.get("funcName");
-			//PyObject result = someFunc.__call__(new PyString("Test!"));
-			//String realResult = (String) result.__tojava__(String.class);
-			//}
 		}else {
 
 		}

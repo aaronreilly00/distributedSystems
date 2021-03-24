@@ -1,13 +1,10 @@
 package lighting;
 import java.io.IOException;
 import java.util.logging.Logger;
-
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
-import io.grpc.ServerServiceDefinition;
 import io.grpc.stub.StreamObserver;
 import lighting.LightServiceGrpc.LightServiceImplBase;
-import io.grpc.stub.StreamObserver;
 
 
 
@@ -19,7 +16,7 @@ public class LightingServer extends LightServiceImplBase{
 		//Create a server, port 5055
 		LightingServer lightingServer = new LightingServer();
 		
-		int port = 50055;
+		int port = 50052;
 	    Server server = ServerBuilder.forPort(port)
 	        .addService(lightingServer)
 	        .build()
@@ -33,15 +30,9 @@ public class LightingServer extends LightServiceImplBase{
 	
 	public void switchPower(PowerRequest request, StreamObserver<PowerResponse> responseObserver) {
 		// Print a message stating the function has been invoked
-        System.out.println("Receiving request for power!");
+        System.out.println("Power request received ");
         // Get the switch variable
         Boolean power = request.getSwitch();
-        if (power) {
-        	System.out.println("Setting power to on!");
-        }
-        else {
-        	System.out.println("Setting power to off!");
-        }
         
         // Send a response with power value back
         PowerResponse response = PowerResponse.newBuilder().setSwitch(power).build();
@@ -59,7 +50,7 @@ public class LightingServer extends LightServiceImplBase{
 			public void onNext(LightRequest value) {
 				// Print the request when receieved
 				light = value.getLight();
-				System.out.println("Request to turn brightness to -> " + light);
+				System.out.println("Turn brightness to " + light);
 				
 			}
 			

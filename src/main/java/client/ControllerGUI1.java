@@ -4,16 +4,31 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.jmdns.JmDNS;
+import javax.jmdns.ServiceEvent;
+import javax.jmdns.ServiceInfo;
+import javax.jmdns.ServiceListener;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+
 import alarm.AlarmServiceGrpc;
 import alarm.Point;
 import alarm.RouteNote;
@@ -194,12 +209,66 @@ public class ControllerGUI1 implements ActionListener {
 		return panel;
 
 	}
+	
+	private static class SampleListener implements ServiceListener {
+		@Override
+		public void serviceAdded(ServiceEvent event) {
+			
+			  
+			System.out.println("Service added: " + event.getInfo());
+			
+			
+			 try {                
+                 Socket s = new Socket("localhost", 9090);
+                 BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                 String answer = input.readLine();
+                 JOptionPane.showMessageDialog(null, answer);
+                 System.exit(0);
+             } catch (IOException ex) {
+                 Logger.getLogger(ControllerGUI1.class.getName()).log(Level.SEVERE, null, ex);
+             }
+			 
+		}
 
-	public static void main(String[] args) {
-		// ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost",
-		// 50051).usePlaintext().build();
-		// asyncStub = LivestockServiceGrpc.newStub(channel);
+		@Override
+		public void serviceRemoved(ServiceEvent event) {
+			System.out.println("Service removed: " + event.getInfo());
+		}
 
+		@Override
+		public void serviceResolved(ServiceEvent event) {
+                    System.out.println("Service resolved: " + event.getInfo());
+
+                    try {
+                        ServiceInfo info = event.getInfo();
+                        int port = info.getPort();
+                        String address = info.getHostAddresses()[0];
+                        Socket s = new Socket(address, port);
+                        BufferedReader input = new BufferedReader(new InputStreamReader(s.getInputStream()));
+                        String answer = input.readLine();
+                        JOptionPane.showMessageDialog(null, answer);
+                        System.exit(0);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ControllerGUI1.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+		}
+	}
+
+	public static void main(String[] args) throws InterruptedException{
+	
+		try {
+			// Create a JmDNS instance
+			JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());
+
+			// Add a service listener
+			jmdns.addServiceListener("_smartFarming._tcp.local.", new SampleListener());
+
+		} catch (UnknownHostException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
 		ControllerGUI1 gui = new ControllerGUI1();
 		gui.build();
 	}

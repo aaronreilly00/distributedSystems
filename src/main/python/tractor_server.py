@@ -9,7 +9,7 @@ import tractor_pb2_grpc
 class TractorService(tractor_pb2_grpc.TractorServiceServicer):
 
     def TractorDetails(self, request, context):
-        return tractor_pb2.TractorResponse(message='Brand, %s!' % request.name)
+        return tractor_pb2.TractorResponse(message='Brand, %s needs to be serviced!' % request.name)
         
 
 def serve():

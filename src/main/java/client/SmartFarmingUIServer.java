@@ -10,7 +10,7 @@ import java.util.Date;
 import javax.jmdns.JmDNS;
 import javax.jmdns.ServiceInfo;
 
-public class ControllerServer {
+public class SmartFarmingUIServer {
     public static void main(String[] args) throws IOException {
         int port = 9090;
         JmDNS jmdns = JmDNS.create(InetAddress.getLocalHost());

@@ -44,7 +44,7 @@ import livestock.LivestockServiceGrpc;
 import tractor.TractorServiceGrpc;
 import tractor.TractorServiceGrpc.TractorServiceBlockingStub;
 
-public class ControllerGUI1 implements ActionListener {
+public class SmartFarmingUI implements ActionListener {
 
 	private JTextField tagEntry, tag, gender, dob, temperature, feedTime, latitude, longitude;
 	private JTextField powerEntry, powerReply, brightnessEntry, updatedBrightness;
@@ -225,7 +225,7 @@ public class ControllerGUI1 implements ActionListener {
                  JOptionPane.showMessageDialog(null, answer);
                  System.exit(0);
              } catch (IOException ex) {
-                 Logger.getLogger(ControllerGUI1.class.getName()).log(Level.SEVERE, null, ex);
+                 Logger.getLogger(SmartFarmingUI.class.getName()).log(Level.SEVERE, null, ex);
              }
 			 
 		}
@@ -249,7 +249,7 @@ public class ControllerGUI1 implements ActionListener {
                         JOptionPane.showMessageDialog(null, answer);
                         System.exit(0);
                     } catch (IOException ex) {
-                        Logger.getLogger(ControllerGUI1.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(SmartFarmingUI.class.getName()).log(Level.SEVERE, null, ex);
                     }
 		}
 	}
@@ -269,7 +269,7 @@ public class ControllerGUI1 implements ActionListener {
 			System.out.println(e.getMessage());
 		}
 		
-		ControllerGUI1 gui = new ControllerGUI1();
+		SmartFarmingUI gui = new SmartFarmingUI();
 		gui.build();
 	}
 
